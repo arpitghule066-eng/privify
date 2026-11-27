@@ -1,10 +1,10 @@
-// @ts-check
+﻿// @ts-check
 /**
  * @file Service worker — cache-first strategy for the app shell.
  * Provides full offline capability as a privacy guarantee.
  */
 
-const CACHE_NAME = 'redactlocal-v1';
+const CACHE_NAME = 'privify-v2';
 
 const APP_SHELL = [
   './',

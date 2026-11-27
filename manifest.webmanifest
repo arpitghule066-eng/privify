@@ -1,6 +1,6 @@
 {
-  "name": "RedactLocal",
-  "short_name": "RedactLocal",
+  "name": "Privify",
+  "short_name": "Privify",
   "description": "Browser-only PII sanitization — nothing leaves your device",
   "start_url": "./index.html",
   "display": "standalone",
