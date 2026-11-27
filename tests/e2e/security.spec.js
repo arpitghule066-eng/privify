@@ -1,12 +1,12 @@
 // @ts-check
 /**
- * @file Playwright E2E security tests for RedactLocal.
+ * @file Playwright E2E security tests for Privify.
  */
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-test.describe('RedactLocal — Security', () => {
+test.describe('Privify — Security', () => {
   test('makes zero network requests after initial page load', async ({ page }) => {
     const postLoadRequests = [];
     await page.goto('/');

@@ -2,7 +2,7 @@
 
 > **Browser-only PII sanitization — nothing leaves your device.**
 
-[![CI](https://github.com/user/redactlocal/actions/workflows/ci-deploy.yml/badge.svg)](https://github.com/user/redactlocal/actions)
+[![CI](https://github.com/user/privify/actions/workflows/ci-deploy.yml/badge.svg)](https://github.com/user/privify/actions)
 ![Coverage](https://img.shields.io/badge/coverage-%E2%89%A590%25-brightgreen)
 ![Lighthouse Performance](https://img.shields.io/badge/lighthouse%20performance-%E2%89%A595-brightgreen)
 ![Lighthouse Accessibility](https://img.shields.io/badge/lighthouse%20a11y-100-brightgreen)
@@ -10,14 +10,14 @@
 
 ## Live Demo
 
-- **Firebase Hosting (Recommended — full security headers):** `https://redactlocal-demo.web.app`
-- **GitHub Pages:** `https://<username>.github.io/redactlocal/`
+- **Firebase Hosting (Recommended — full security headers):** `https://privify-demo.web.app`
+- **GitHub Pages:** `https://<username>.github.io/privify/`
 
 ## 30-Second Quick Start
 
 ```bash
-git clone https://github.com/<username>/redactlocal.git
-cd redactlocal
+git clone https://github.com/<username>/privify.git
+cd privify
 npm install        # dev tooling only (ESLint, Playwright, axe-core) — zero runtime deps
 npm start          # serves on http://localhost:8080 with strict security headers
 ```
@@ -93,7 +93,7 @@ flowchart LR
 4. **Material Design 3 (`css/styles.css`):** MD3 color, shape, elevation, and type scale tokens using system fonts (no remote Google Fonts).
 5. **PWA (`manifest.webmanifest`, `sw.js`):** Cache-first app shell for full offline operation.
 
-> **Why not Google Analytics, reCAPTCHA, Google Fonts, or Cloud Gemini API?** Any of those would transmit user data or metadata to external servers, violating RedactLocal's core "nothing leaves your browser" guarantee.
+> **Why not Google Analytics, reCAPTCHA, Google Fonts, or Cloud Gemini API?** Any of those would transmit user data or metadata to external servers, violating Privify's core "nothing leaves your browser" guarantee.
 
 ---
 
@@ -103,7 +103,7 @@ flowchart LR
 - **Strict CSP** with `require-trusted-types-for 'script'` and `default-src 'none'`.
 - **No unsafe DOM sinks** (`innerHTML`, `eval`, `document.write` banned by ESLint & static security tests).
 - **CSV formula injection defense** (`=`, `@`, `\t`, `\r`, `+`/`-` non-digit prefixed with `'`).
-- **No persistence of raw PII** (`localStorage` used solely for `redactlocal-theme`).
+- **No persistence of raw PII** (`localStorage` used solely for `privify-theme`).
 
 See [SECURITY.md](./SECURITY.md) for the full threat model.
 

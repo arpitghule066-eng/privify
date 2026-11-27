@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * @file Central constants for RedactLocal.
+ * @file Central constants for Privify.
  * All entity types, labels, colors, limits, and messages live here.
  * @module constants
  */
@@ -113,7 +113,7 @@ export const ALLOWED_MIMES = Object.freeze([
 ]);
 
 /** localStorage key for theme */
-export const THEME_STORAGE_KEY = 'redactlocal-theme';
+export const THEME_STORAGE_KEY = 'privify-theme';
 
 /** User-facing messages */
 export const MESSAGES = Object.freeze({

@@ -39,7 +39,7 @@ IPv6 gateway: 2001:db8::1
 <script>alert(1)</script>
 
 Colleague contact: priya.sharma@corp.in
-Support lead: helpdesk@redactlocal.dev
+Support lead: helpdesk@privify.dev
 US support line: (555) 123-4567
 International: +1-202-555-0147
 

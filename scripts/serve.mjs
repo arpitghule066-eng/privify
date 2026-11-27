@@ -85,5 +85,5 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`RedactLocal dev server running at http://localhost:${PORT}`);
+  console.log(`Privify dev server running at http://localhost:${PORT}`);
 });

@@ -62,12 +62,12 @@ describe('security — static source scans', () => {
     }
   });
 
-  it('uses localStorage only with key redactlocal-theme', () => {
+  it('uses localStorage only with key privify-theme', () => {
     for (const file of JS_FILES) {
       const content = readFileSync(file, 'utf8');
       assert.equal(content.includes('sessionStorage'), false, `Found sessionStorage in ${file}`);
       if (content.includes('localStorage')) {
-        assert.ok(content.includes('THEME_STORAGE_KEY') || content.includes('redactlocal-theme'));
+        assert.ok(content.includes('THEME_STORAGE_KEY') || content.includes('privify-theme'));
       }
     }
   });

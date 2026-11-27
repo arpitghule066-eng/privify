@@ -27,24 +27,13 @@ export class ValidationError extends Error {
  */
 export function validateFile(file) {
   const name = file.name.toLowerCase();
+  // Only the LAST extension counts, so double extensions like .txt.exe are rejected.
   const ext = name.slice(name.lastIndexOf('.'));
 
   if (!ALLOWED_EXTENSIONS.includes(ext)) {
     throw new ValidationError(MESSAGES.FILE_INVALID_TYPE);
   }
 
-  if (name.lastIndexOf('.') !== name.indexOf('.') && !ALLOWED_EXTENSIONS.includes(ext)) {
-    throw new ValidationError(MESSAGES.FILE_INVALID_TYPE);
-  }
-
-  // Check for double extension attacks like .txt.exe
-  const parts = name.split('.');
-  if (parts.length > 2) {
-    const realExt = '.' + parts[parts.length - 1];
-    if (!ALLOWED_EXTENSIONS.includes(realExt)) {
-      throw new ValidationError(MESSAGES.FILE_INVALID_TYPE);
-    }
-  }
 
   if (!ALLOWED_MIMES.includes(file.type)) {
     throw new ValidationError(MESSAGES.FILE_INVALID_TYPE);

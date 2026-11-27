@@ -1,10 +1,10 @@
 // @ts-check
 /**
- * @file Playwright E2E functional UI tests for RedactLocal.
+ * @file Playwright E2E functional UI tests for Privify.
  */
 import { test, expect } from '@playwright/test';
 
-test.describe('RedactLocal — Functional UI', () => {
+test.describe('Privify — Functional UI', () => {
   test('loads sample text and displays expected entity counts', async ({ page }) => {
     await page.goto('/');
     await page.click('#btn-load-sample');

@@ -7,7 +7,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 
-test.describe('RedactLocal — Accessibility', () => {
+test.describe('Privify — Accessibility', () => {
   test('has zero axe-core violations across empty, loaded, modes, dark theme, and error states', async ({ page }) => {
     await page.goto('/');
 

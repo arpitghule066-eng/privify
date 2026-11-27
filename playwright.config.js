@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * @file Playwright configuration for RedactLocal E2E tests.
+ * @file Playwright configuration for Privify E2E tests.
  */
 import { defineConfig } from '@playwright/test';
 

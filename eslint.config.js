@@ -1,6 +1,6 @@
 // @ts-check
 /**
- * @file ESLint flat configuration for RedactLocal.
+ * @file ESLint flat configuration for Privify.
  * Uses @eslint/js recommended rules plus custom bans for security.
  */
 import js from '@eslint/js';

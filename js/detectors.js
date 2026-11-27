@@ -92,8 +92,8 @@ function detectCardBrand(digits) {
   if (/^4/.test(digits)) return 'visa';
   if (/^5[1-5]/.test(digits)) return 'mastercard';
   if (/^3[47]/.test(digits)) return 'amex';
+  if (/^6(?:011|4[4-9])/.test(digits)) return 'discover';
   if (/^(60|65|81|82)/.test(digits)) return 'rupay';
-  if (/^6(?:011|5)/.test(digits)) return 'discover';
   return 'unknown';
 }
 

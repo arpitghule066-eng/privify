@@ -87,17 +87,21 @@ export async function detectWithAI(text, options = {}) {
  * @returns {Promise<Array<{type: string, text: string, start: number, end: number}>>}
  */
 async function promptChunk(session, chunk, signal) {
+  /** @type {ReturnType<typeof setTimeout> | undefined} */
+  let timer;
   try {
     const response = await Promise.race([
       session.prompt(chunk.text, { signal }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('AI timeout')), LIMITS.AI_TIMEOUT_MS)
-      ),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error('AI timeout')), LIMITS.AI_TIMEOUT_MS);
+      }),
     ]);
     return parseAIResponse(response, chunk.text, chunk.offset);
   } catch (err) {
     if (err.name === 'AbortError') throw err;
     return [];
+  } finally {
+    clearTimeout(timer);
   }
 }
 

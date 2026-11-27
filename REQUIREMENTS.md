@@ -1,4 +1,4 @@
-# Requirements Traceability Matrix — RedactLocal
+# Requirements Traceability Matrix — Privify
 
 Every mandatory requirement from the brief mapped to its implementation, file, function, and automated test.
 
