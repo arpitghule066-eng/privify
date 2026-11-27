@@ -1,4 +1,4 @@
-# RedactLocal
+# Privify
 
 > **Browser-only PII sanitization — nothing leaves your device.**
 
