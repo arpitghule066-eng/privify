@@ -1,0 +1,12 @@
+{
+  "name": "RedactLocal",
+  "short_name": "RedactLocal",
+  "description": "Browser-only PII sanitization — nothing leaves your device",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "icons": [
+    { "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

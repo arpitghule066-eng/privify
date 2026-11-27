@@ -1,0 +1,4 @@
+Name,Email,Phone,PAN,Notes
+"John Doe",John.Doe@Example.com,+91 98765 43210,ABCPE1234F,"Card: 4111 1111 1111 1111"
+"Priya Sharma",priya.sharma@corp.in,(555) 123-4567,ABCPE1234F,"Aadhaar: 2345 6789 0124"
+"=SUM(A1:A3)","@cmd","test","ABCDE1234F","Normal text"

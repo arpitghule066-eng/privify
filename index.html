@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests">
+  <meta name="referrer" content="no-referrer">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RedactLocal — browser-only PII sanitization. Nothing leaves your device.">
+  <title>RedactLocal — Browser-Only PII Sanitizer</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+</head>
+<body>
+  <a href="#main-content" class="skip-link" id="skip-link" data-testid="skip-link">Skip to results</a>
+
+  <header>
+    <div class="header-content">
+      <div class="logo-area">
+        <img src="./favicon.svg" alt="" width="32" height="32" class="logo-icon">
+        <h1>RedactLocal</h1>
+      </div>
+      <div class="header-badges">
+        <span class="privacy-badge" aria-label="100% offline — nothing leaves your browser">🔒 100% offline · nothing leaves your browser</span>
+        <button id="theme-toggle" data-testid="theme-toggle" type="button" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Toolbar -->
+    <section class="toolbar" aria-label="Controls">
+      <!-- Mode selection -->
+      <fieldset class="mode-fieldset">
+        <legend>Redaction Mode</legend>
+        <label><input type="radio" name="mode" id="mode-full" data-testid="mode-full" value="full" checked> Full</label>
+        <label><input type="radio" name="mode" id="mode-partial" data-testid="mode-partial" value="partial"> Partial</label>
+        <label><input type="radio" name="mode" id="mode-pseudo" data-testid="mode-pseudo" value="pseudo"> Pseudo</label>
+      </fieldset>
+
+      <!-- Entity toggles -->
+      <fieldset class="entity-toggles">
+        <legend>Entity Types</legend>
+        <label><input type="checkbox" id="toggle-EMAIL" data-testid="toggle-EMAIL" checked> ✉ Email</label>
+        <label><input type="checkbox" id="toggle-PHONE" data-testid="toggle-PHONE" checked> ☎ Phone</label>
+        <label><input type="checkbox" id="toggle-IP" data-testid="toggle-IP" checked> 🌐 IP</label>
+        <label><input type="checkbox" id="toggle-PAN" data-testid="toggle-PAN" checked> 🪪 PAN</label>
+        <label><input type="checkbox" id="toggle-AADHAAR" data-testid="toggle-AADHAAR" checked> 🆔 Aadhaar</label>
+        <label><input type="checkbox" id="toggle-CARD" data-testid="toggle-CARD" checked> 💳 Card</label>
+      </fieldset>
+
+      <!-- Options -->
+      <fieldset class="options-fieldset">
+        <legend>Options</legend>
+        <label><input type="checkbox" id="toggle-strict-aadhaar" data-testid="toggle-strict-aadhaar"> Strict Aadhaar (Verhoeff only)</label>
+        <label><input type="checkbox" id="toggle-csv-safe" data-testid="toggle-csv-safe" checked> CSV formula protection</label>
+        <label><input type="checkbox" id="toggle-ai-assist" data-testid="toggle-ai-assist"> AI assist: detect names &amp; addresses (on-device Gemini Nano) <span id="ai-status" data-testid="ai-status" class="ai-status"></span></label>
+      </fieldset>
+    </section>
+
+    <!-- Input area -->
+    <section class="input-section" aria-label="Input">
+      <div class="input-controls">
+        <label for="input-text">Paste or type text to sanitize:</label>
+        <div class="button-group">
+          <button id="btn-load-sample" data-testid="btn-load-sample" type="button">Load Sample Text</button>
+          <button id="btn-load-sample-csv" data-testid="btn-load-sample-csv" type="button">Load Sample CSV</button>
+          <button id="btn-clear" data-testid="btn-clear" type="button">Clear</button>
+        </div>
+      </div>
+      <textarea id="input-text" data-testid="input-text" rows="8" placeholder="Paste text containing PII here, or load a sample…"></textarea>
+
+      <div id="drop-zone" data-testid="drop-zone" class="drop-zone" role="region" aria-label="File drop zone">
+        <label for="file-input">Or upload a file (.txt, .csv):</label>
+        <input type="file" id="file-input" data-testid="file-input" accept=".txt,.csv,text/plain,text/csv">
+        <p class="drop-hint">You can also drag and drop a file here</p>
+      </div>
+    </section>
+
+    <!-- Status -->
+    <div id="status-message" data-testid="status-message" role="status" aria-live="polite"></div>
+
+    <!-- Stats bar -->
+    <section class="stats-bar" aria-label="Detection statistics" aria-live="polite">
+      <span class="stat">Total: <strong id="count-total" data-testid="count-total">0</strong></span>
+      <span class="stat">✉ Email: <strong id="count-EMAIL" data-testid="count-EMAIL">0</strong></span>
+      <span class="stat">☎ Phone: <strong id="count-PHONE" data-testid="count-PHONE">0</strong></span>
+      <span class="stat">🌐 IP: <strong id="count-IP" data-testid="count-IP">0</strong></span>
+      <span class="stat">🪪 PAN: <strong id="count-PAN" data-testid="count-PAN">0</strong></span>
+      <span class="stat">🆔 Aadhaar: <strong id="count-AADHAAR" data-testid="count-AADHAAR">0</strong></span>
+      <span class="stat">💳 Card: <strong id="count-CARD" data-testid="count-CARD">0</strong></span>
+      <span class="stat ai-stat" hidden>👤 Person: <strong id="count-PERSON" data-testid="count-PERSON">0</strong></span>
+      <span class="stat ai-stat" hidden>📍 Address: <strong id="count-ADDRESS" data-testid="count-ADDRESS">0</strong></span>
+    </section>
+
+    <!-- Diff view -->
+    <section class="diff-section" aria-label="Comparison view">
+      <div class="diff-header">
+        <span>Original</span>
+        <span>Sanitized</span>
+      </div>
+      <div class="diff-container">
+        <div id="diff-original" data-testid="diff-original" class="diff-pane" role="region" aria-label="Original text" tabindex="0"></div>
+        <div id="diff-sanitized" data-testid="diff-sanitized" class="diff-pane" role="region" aria-label="Sanitized text" tabindex="0"></div>
+      </div>
+    </section>
+
+    <!-- Action buttons -->
+    <section class="actions" aria-label="Export actions">
+      <button id="btn-download" data-testid="btn-download" type="button" disabled>Download Sanitized</button>
+      <button id="btn-copy" data-testid="btn-copy" type="button" disabled>Copy to Clipboard</button>
+      <button id="btn-export-report" data-testid="btn-export-report" type="button" disabled>Export Audit Report</button>
+      <button id="btn-export-mapping" data-testid="btn-export-mapping" type="button" disabled>Export Mapping</button>
+    </section>
+
+    <!-- Entity type legend -->
+    <section class="legend" aria-label="Entity type legend">
+      <h2>Entity Types</h2>
+      <div class="legend-items">
+        <span class="legend-item"><mark class="pii pii-EMAIL">✉ Email</mark></span>
+        <span class="legend-item"><mark class="pii pii-PHONE">☎ Phone</mark></span>
+        <span class="legend-item"><mark class="pii pii-IPV4">🌐 IPv4</mark></span>
+        <span class="legend-item"><mark class="pii pii-IPV6">🌐 IPv6</mark></span>
+        <span class="legend-item"><mark class="pii pii-PAN">🪪 PAN</mark></span>
+        <span class="legend-item"><mark class="pii pii-AADHAAR">🆔 Aadhaar</mark></span>
+        <span class="legend-item"><mark class="pii pii-CARD">💳 Card</mark></span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>RedactLocal — 100% client-side PII sanitization. No data leaves your browser.</p>
+  </footer>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
