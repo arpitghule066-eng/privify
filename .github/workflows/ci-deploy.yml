@@ -81,7 +81,7 @@ jobs:
         with:
           path: _site
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   deploy-firebase:
     needs: [e2e, lighthouse]
