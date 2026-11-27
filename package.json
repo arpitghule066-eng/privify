@@ -17,7 +17,7 @@
     "check:size": "node scripts/check-size.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.48.2",
+    "@playwright/test": "1.65.1",
     "@axe-core/playwright": "4.10.0",
     "eslint": "9.14.0",
     "@eslint/js": "9.14.0",
